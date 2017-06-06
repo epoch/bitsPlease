@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  border: 1px solid pink;
+  width: 900px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+/*.container > * {
+  display: inline-block;
+}*/
+
+main {
+  border: 1px solid lime;
+  width: 70%;
+  float: left;
+  padding: 10px;
+}
+
+aside {
+  border: 1px solid blue;
+  width: 28%;
+  float: left;
+}
+
+img {
+  float: left;
+  width: 100%;
+}

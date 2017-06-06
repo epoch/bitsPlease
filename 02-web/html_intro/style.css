@@ -1,0 +1,15 @@
+#main-heading {
+  color: tomato;
+}
+
+.desire {
+  font-size: 20px;
+}
+
+article > span {
+  color: lime;
+}
+
+span {
+  color: pink;
+}
