@@ -1,0 +1,15 @@
+<h1>welcome to the stock app</h1>
+
+<ul>
+  <% @languages.each do |lang| %>
+
+  <li><a href="<%= lang %>"><%= lang %></a></li>
+
+  <% end %>
+</ul>
+
+<form action="/stock">
+  <label for="">stock name</label>
+  <input name="stock" type="text">
+  <button>get price</button>
+</form>
