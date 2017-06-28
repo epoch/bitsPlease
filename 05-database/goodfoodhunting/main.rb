@@ -50,6 +50,17 @@ get '/dishes/:id' do
   erb :dish_details
 end
 
+get '/dishes/:id/edit' do
+  sql = "SELECT * FROM dishes WHERE id = #{ params[:id] }"
+  @dish = run_sql(sql)[0]
+  erb :edit
+end
+
+patch '/dishes/:id' do
+  run_sql("UPDATE dishes SET name = '#{ params[:name] }', image_url = '#{ params[:image_url] }' WHERE id = #{ params[:id] }")
+  redirect '/dishes'
+end
+
 
 
 
