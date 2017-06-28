@@ -61,6 +61,11 @@ patch '/dishes/:id' do
   redirect '/dishes'
 end
 
+delete '/dishes/:id' do
+  run_sql("DELETE FROM dishes WHERE id = #{ params[:id] };")
+  redirect '/dishes'
+end
+
 
 
 
