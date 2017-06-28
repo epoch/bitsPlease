@@ -10,17 +10,48 @@ def run_sql(sql)
   result  
 end
 
-get '/dish_list' do
-  @dishes = run_sql('SELECT * FROM dishes;')
+# reading
+# get '/dishes'
+# get '/dishes/:id'
+# get '/dishes/new' # optional - getting the new empty form
+# get '/dishes/:id/edit' # optional
+
+# create
+# post '/dishes'
+# get '/create_a_dish'
+
+# delete
+# delete '/dishes/:id'
+# get '/remove_this_dish_i_hate_it'
+
+# updating
+# patch '/dishes/:id'
+
+get '/dishes' do
+  @dishes = run_sql('SELECT * FROM dishes order by name;')
   erb :index
 end
 
+get '/dishes/new' do
+  erb :new
+end
+
+post '/dishes' do
+  sql = "INSERT INTO dishes(name, image_url) VALUES ('#{ params[:name] }', '#{ params[:image_url] }');"
+
+  run_sql(sql)
+  redirect '/dishes'
+end
+
 # http://localhost:4567/dish_details/cake
-get '/dish_details/:id' do
+get '/dishes/:id' do
   sql = "SELECT * FROM dishes WHERE id = #{ params[:id] };"
   @dish = run_sql(sql)[0]
   erb :dish_details
 end
+
+
+
 
 
 
