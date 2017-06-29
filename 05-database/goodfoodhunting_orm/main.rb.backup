@@ -1,0 +1,42 @@
+require 'sinatra'
+require 'sinatra/reloader'
+require 'pry'
+
+get '/dish_list' do
+  lines = File.readlines('dishes.csv')
+
+  @dishes = lines.map do |line|
+    hash = {}           
+    name, image_url = line.split(',')
+    hash[:name] = name
+    hash[:image_url] = image_url
+    hash
+  end
+
+  erb :index
+end
+
+# http://localhost:4567/dish_details/cake
+get '/dish_details/:dish_name' do
+
+  lines = File.readlines('dishes.csv')
+
+  @dishes = lines.map do |line|
+    hash = {}           
+    name, image_url = line.split(',')
+    hash[:name] = name
+    hash[:image_url] = image_url
+    hash
+  end
+
+  @dish = @dishes.find do |dish|
+    params[:dish_name] == dish[:name]
+  end
+
+  erb :dish_details
+end
+
+
+
+
+

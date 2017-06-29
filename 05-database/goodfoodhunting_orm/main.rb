@@ -3,6 +3,7 @@ require 'sinatra/reloader'
 require 'pry'
 require 'pg'
 
+require_relative 'db_config'
 require_relative 'models/dish'
 
 def run_sql(sql)
@@ -30,7 +31,7 @@ end
 # patch '/dishes/:id'
 
 get '/dishes' do
-  @dishes = run_sql('SELECT * FROM dishes order by name;')
+  @dishes = Dish.all
   erb :index
 end
 
@@ -47,11 +48,8 @@ end
 
 # http://localhost:4567/dish_details/cake
 get '/dishes/:id' do
-  sql = "SELECT * FROM dishes WHERE id = #{ params[:id] };"
-  @dish = run_sql(sql)[0]
-
-  sql2 = "SELECT * FROM comments WHERE dish_id = #{ params[:id] }"
-  @comments = run_sql(sql2)
+  @dish = Dish.find(params[:id])
+  @comments = []
 
   # return sql2
   erb :dish_details
