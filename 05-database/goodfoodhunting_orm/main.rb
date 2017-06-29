@@ -5,6 +5,7 @@ require 'pg'
 
 require_relative 'db_config'
 require_relative 'models/dish'
+require_relative 'models/comment'
 
 def run_sql(sql)
   conn = PG.connect(dbname: 'goodfoodhunting')
@@ -40,34 +41,47 @@ get '/dishes/new' do
 end
 
 post '/dishes' do
-  sql = "INSERT INTO dishes(name, image_url) VALUES ('#{ params[:name] }', '#{ params[:image_url] }');"
-
-  run_sql(sql)
+  # sql = "INSERT INTO dishes(name, image_url) VALUES ('#{ params[:name] }', '#{ params[:image_url] }');"
+  # run_sql(sql)
+  dish = Dish.new
+  dish.name = params[:name]
+  dish.image_url = params[:image_url]
+  dish.save
   redirect '/dishes'
 end
 
 # http://localhost:4567/dish_details/cake
 get '/dishes/:id' do
   @dish = Dish.find(params[:id])
-  @comments = []
+  @comments = Comment.where(dish_id: params[:id])
 
   # return sql2
   erb :dish_details
 end
 
 get '/dishes/:id/edit' do
-  sql = "SELECT * FROM dishes WHERE id = #{ params[:id] }"
-  @dish = run_sql(sql)[0]
+  # sql = "SELECT * FROM dishes WHERE id = #{ params[:id] }"
+  # @dish = run_sql(sql)[0]
+
+  @dish = Dish.find(params[:id])
   erb :edit
 end
 
 patch '/dishes/:id' do
-  run_sql("UPDATE dishes SET name = '#{ params[:name] }', image_url = '#{ params[:image_url] }' WHERE id = #{ params[:id] }")
+  # run_sql("UPDATE dishes SET name = '#{ params[:name] }', image_url = '#{ params[:image_url] }' WHERE id = #{ params[:id] }")
+  dish = Dish.find(params[:id])
+  dish.name = params[:name]
+  dish.image_url = params[:image_url]
+  dish.save
+
   redirect '/dishes'
 end
 
 delete '/dishes/:id' do
-  run_sql("DELETE FROM dishes WHERE id = #{ params[:id] };")
+  # run_sql("DELETE FROM dishes WHERE id = #{ params[:id] };")
+  dish = Dish.find(params[:id])
+  dish.destroy
+
   redirect '/dishes'
 end
 
