@@ -14,6 +14,14 @@ CREATE TABLE comments(
   dish_id INTEGER
 );
 
+CREATE TABLE users(
+  id SERIAL4 PRIMARY KEY,
+  email VARCHAR(400),
+  password_digest TEXT
+);
+
+
+
 
 
 

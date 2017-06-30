@@ -6,6 +6,7 @@ require 'pg'
 require_relative 'db_config'
 require_relative 'models/dish'
 require_relative 'models/comment'
+require_relative 'models/user'
 
 def run_sql(sql)
   conn = PG.connect(dbname: 'goodfoodhunting')
@@ -13,6 +14,27 @@ def run_sql(sql)
   conn.close
   result  
 end
+
+helpers do
+
+  def logged_in?
+    if current_user
+      true
+    else
+      false
+    end 
+
+    # !!current_user
+    # current_user ? true : false  
+  end
+
+  def current_user
+    User.find_by(id: session[:user_id])
+  end
+
+end
+
+enable :sessions
 
 # reading
 # get '/dishes'
@@ -86,9 +108,35 @@ delete '/dishes/:id' do
 end
 
 post '/comments' do
+  redirect '/login' if !session[:user_id] 
+
   sql = "INSERT INTO comments (body, dish_id) VALUES ('#{ params[:body] }', #{ params[:dish_id] })"
   run_sql(sql)
   redirect "/dishes/#{ params[:dish_id] }"
+
+end
+
+get '/login' do
+  erb :login
+end
+
+post '/session' do
+  # search for the user in the db
+  user = User.find_by(email: params[:email])
+  # authenticate that user with the password they gave you
+  if user && user.authenticate(params[:password])
+    # create a session
+    session[:user_id] = user.id
+    # redirect to protected page
+    redirect '/dishes'
+  else
+    erb :login 
+  end 
+end
+
+delete '/session' do
+  session[:user_id] = nil
+  redirect '/login' 
 end
 
 
