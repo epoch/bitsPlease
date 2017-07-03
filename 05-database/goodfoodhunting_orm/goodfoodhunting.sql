@@ -20,6 +20,17 @@ CREATE TABLE users(
   password_digest TEXT
 );
 
+CREATE TABLE dish_types(
+  id SERIAL4 PRIMARY KEY,
+  name VARCHAR(400)
+);
+
+ALTER TABLE dishes ADD COLUMN dish_type_id INTEGER;
+
+
+
+
+
 
 
 

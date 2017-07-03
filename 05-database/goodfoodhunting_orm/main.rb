@@ -7,6 +7,7 @@ require_relative 'db_config'
 require_relative 'models/dish'
 require_relative 'models/comment'
 require_relative 'models/user'
+require_relative 'models/dish_type'
 
 def run_sql(sql)
   conn = PG.connect(dbname: 'goodfoodhunting')
@@ -59,22 +60,30 @@ get '/dishes' do
 end
 
 get '/dishes/new' do
+  @dish_types = DishType.all
   erb :new
 end
 
 post '/dishes' do
   # sql = "INSERT INTO dishes(name, image_url) VALUES ('#{ params[:name] }', '#{ params[:image_url] }');"
   # run_sql(sql)
+
   dish = Dish.new
   dish.name = params[:name]
   dish.image_url = params[:image_url]
-  dish.save
-  redirect '/dishes'
+  dish.dish_type_id = params[:dish_type_id]
+  
+  if dish.save
+    redirect '/dishes'
+  else
+    erb :new
+  end
 end
 
 # http://localhost:4567/dish_details/cake
 get '/dishes/:id' do
   @dish = Dish.find(params[:id])
+
   @comments = Comment.where(dish_id: params[:id])
 
   # return sql2
@@ -86,6 +95,7 @@ get '/dishes/:id/edit' do
   # @dish = run_sql(sql)[0]
 
   @dish = Dish.find(params[:id])
+  @dish_types = DishType.all
   erb :edit
 end
 
@@ -108,7 +118,7 @@ delete '/dishes/:id' do
 end
 
 post '/comments' do
-  redirect '/login' if !session[:user_id] 
+  redirect '/login' if !logged_in? 
 
   sql = "INSERT INTO comments (body, dish_id) VALUES ('#{ params[:body] }', #{ params[:dish_id] })"
   run_sql(sql)

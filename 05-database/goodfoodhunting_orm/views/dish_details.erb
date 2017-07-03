@@ -2,6 +2,8 @@
 
 <h2><%= @dish['name'] %></h2>
 
+<h4><%= @dish.dish_type_name %></h4>
+
 <img src="<%= @dish['image_url'] %>" alt="">
 
 <a href="/dishes/<%= @dish['id'] %>/edit">edit</a>
