@@ -12,9 +12,9 @@ body {
   transition: .4s;
 }
 
-.ui-card:hover {
+/*.ui-card:hover {
   transform: translateY(0.3em);
-}
+}*/
 
 .ui-card header {
   line-height: 2em; 
@@ -34,5 +34,24 @@ body {
 
 .content {
   padding: 0.5em;
+}
+
+.image {
+  position: relative;
+}
+
+.image:hover .star {
+  opacity: 1;
+}
+
+.star {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 3em;
+  color: yellow;
+  cursor: pointer;
+  transition: .4s;
+  opacity: 0;
 }
 
