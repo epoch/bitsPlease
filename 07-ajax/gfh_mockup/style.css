@@ -1,0 +1,38 @@
+body {
+  margin: 1em;
+
+}
+
+.ui-card {
+  width: 300px;
+  background-color: mistyrose;
+  -webkit-box-shadow: 10px 11px 5px -7px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 11px 5px -7px rgba(0,0,0,0.75);
+  box-shadow: 10px 11px 5px -7px rgba(0,0,0,0.75);
+  transition: .4s;
+}
+
+.ui-card:hover {
+  transform: translateY(0.3em);
+}
+
+.ui-card header {
+  line-height: 2em; 
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+}
+
+.likes,
+.created-at {
+  float: right;
+}
+
+.content {
+  padding: 0.5em;
+}
+
