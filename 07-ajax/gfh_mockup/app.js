@@ -18,6 +18,10 @@ document.querySelector('.container').addEventListener('click', function(event) {
 
 });
 
+document.querySelector('#test').addEventListener('click', function() {
+  console.log('sdfsfdsf')
+})
+
 // var stars = document.querySelectorAll('.star');
 
 // document.querySelector('.star').addEventListener('click', updateCount);
