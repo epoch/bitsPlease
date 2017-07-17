@@ -1,0 +1,12 @@
+<form action="/dishes/<%= @dish.id %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <input type="hidden" name="_method" value="patch">
+  <label for="">name</label>
+  <input type="text" name="name" value="<%= @dish.name %>">
+
+  <label for="">image url</label>
+  <textarea name="image_url"><%= @dish.image_url %></textarea>
+
+  <button>update</button>
+</form>
