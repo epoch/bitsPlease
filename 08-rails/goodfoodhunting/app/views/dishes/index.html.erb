@@ -1,0 +1,3 @@
+<% @dishes.each do |dish| %>
+  <p><%= dish.name %> <a href="/dishes/<%= dish.id %>/edit">edit</a></p>
+<% end %>
