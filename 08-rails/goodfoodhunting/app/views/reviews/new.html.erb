@@ -1,0 +1,10 @@
+<h1>contact us</h1>
+
+<form action="/reviews" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label for="">review</label>
+  <textarea name="content"></textarea>
+
+  <button>create</button>
+</form>
