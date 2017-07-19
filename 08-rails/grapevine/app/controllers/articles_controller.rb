@@ -17,11 +17,17 @@ class ArticlesController < ApplicationController
     article.content = params[:content]
     article.category_id = params[:category_id]
 
+    
+
     if article.save
       redirect_to '/articles'
     else
       render :new
     end
+  end
+
+  def stuff
+    render json: { abd: 123 }
   end
 
 end

@@ -2,20 +2,33 @@
 
 <%= @article.process_article %>
 
-<canvas id="chart" width="400" height="400"></canvas>
+<div style="width: 400px;">
+  <canvas id="chart" width="400" height="400"></canvas>
+</div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
 <script>
   var ctx = document.getElementById("chart").getContext('2d');
 
-  new Chart(ctx , {
-    data: { 
-      datasets: [{
-        data: [1,2,3]
-      }]
-    },
-    type: 'polarArea'
+  $.ajax({
+    url: '/api/articles/1'
+  }).done(function(res) {
+
+    console.log(res);
+
+    new Chart(ctx , {
+      data: { 
+        labels: Object.keys(res.histogram),
+        datasets: [{
+          data: _.values(res.histogram)
+        }]
+      },
+      type: 'polarArea'
+    });
+    
   });
+
 
 
 </script>
