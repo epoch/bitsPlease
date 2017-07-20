@@ -6,9 +6,33 @@
   <canvas id="chart" width="400" height="400"></canvas>
 </div>
 
+<form action="">
+  <button id="load-comments">load comments</button>
+</form>
+
+<div class="comments">
+
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
 <script>
+
+  var loadComments = function(event) {
+    event.preventDefault();
+
+    $.ajax({
+      url: '/api/comments'
+    }).done(function(res) {
+
+      console.log(res);
+
+    });
+  } 
+
+  $('#load-comments').on('click', loadComments)
+
+
   var ctx = document.getElementById("chart").getContext('2d');
 
   $.ajax({

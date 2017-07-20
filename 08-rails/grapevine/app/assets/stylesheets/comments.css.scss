@@ -1,0 +1,9 @@
+$primary-color: mistyrose;
+
+.comments {
+  background-color: $primary-color;
+
+  p {
+    border-bottom: 1px solid red;
+  }
+}
