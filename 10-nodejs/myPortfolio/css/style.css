@@ -1,0 +1,11 @@
+body {
+  background-color: linear-gradient(135deg, red, blue); }
+
+.title {
+  color: green;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+  .title span {
+    color: red; }
