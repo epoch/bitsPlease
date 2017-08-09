@@ -6,7 +6,8 @@ export default class TweetBox extends React.Component {
     super(props)
     this.onTextAreaChange = this.onTextAreaChange.bind(this)
     this.state = {
-      content: ''
+      content: '',
+      maxTweetLength: this.props.maxTweetLength || 140
     }
   }
 
@@ -17,10 +18,18 @@ export default class TweetBox extends React.Component {
   }
 
   render() {
+    // var maxTweetLength = this.state.maxTweetLength;
+    // var content = this.state.content;
+    var { maxTweetLength, content } = this.state // destructuring
+    var isDisabled = content.length <= 0 || content.length > maxTweetLength
+    var spanClass = (maxTweetLength - content.length) < 20 ? 'warning' : ''
+
     return <div>
       <textarea onChange={this.onTextAreaChange}></textarea>
-      <button disabled={this.state.content.length <= 0}>tweet</button>
-      <span>140</span>
+      <button disabled={isDisabled}>tweet</button>
+      <span className={spanClass}>
+        {maxTweetLength - content.length}
+      </span>
     </div>
   }
 }
